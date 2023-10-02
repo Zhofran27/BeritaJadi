@@ -41,5 +41,9 @@ Route::get('/berita', [BeritaController::class,'index']);
 Route::get('/kategori', [KategoriController::class,'index']);
 Route::get('kategori/create', [KategoriController::class, 'create']);
 Route::post('kategori/create', [KategoriController::class, 'store']);
+Route::get('kategori/{id}',[KategoriController::class,'destroy']);
+Route::get('kategori/edit/{id}',[KategoriController::class,'edit']);
+Route::put('kategori/{id}',[KategoriController::class,'update']);
+Route::get('/kategori', [KategoriController::class, 'search'])->name('search');
 });
 

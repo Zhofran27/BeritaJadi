@@ -63,7 +63,8 @@ class KategoriController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $ubah=kategori::find($id);
+        return view('kategori.edit',compact(['ubah']));
     }
 
     /**
@@ -71,7 +72,13 @@ class KategoriController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $upd = kategori::find($id);
+        $upd->update($request->all());
+        if($upd){
+            return redirect('/kategori')->with(['success'=>'Data Sukses di ubah']);
+        }else{
+            return redirect('/kategori')->with(['error'=>'Data gagal di ubah']);
+        }
     }
 
     /**
@@ -79,6 +86,26 @@ class KategoriController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $del=kategori::find($id);
+        $del->delete(); //perintah untuk hapus
+        if($del){
+            //redirect dengan pesan sukses
+            return redirect('/kategori')->with(['success'=>'Data Sukses Dihapus!']);
+        }else{
+            //redirect dengan pesan error
+            return redirect('/kategori')->with(['error' => 'Data Gagal Dihapus!']);
+        }
+    }
+
+
+    public function search(Request $request)
+    {
+        $keyword = $request->search; //fungsi cari yang hasilnya dimasukkan ke dalam variabel keyword
+        //menjalan model kategori untuk menampilkan data berdasarkan keyword yang dicari di nama kategori
+        $data = Kategori::where('nama_kategori', 'like', "%" . $keyword . "%")->paginate(5);
+
+        //menampilkan hasil pencarian yang isinya sudah ditampung dalam variabel data
+        //dengan menampilkan hasil pencarian untuk keyword yang mirip sebanyak maksimal 5 data perhalaman
+        return view('kategori.index', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 }
