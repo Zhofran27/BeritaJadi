@@ -16,7 +16,7 @@
                                  <a class="btn btn-primary btn-md" href="/berita/create">Tambah </a>
                                 </h2>
                              <hr>
-                           <form class="form" method="get" action="">
+                           <form class="form" method="get" action="/berita">
                             <div class="form-group w-50 mb-1">
                                 <input type="text" name="search" class="form-control w-75 d-inline" id="search" placeholder="Masukkan judul berita">
                                 <button type="submit" class="btn btn-primary mb-1">Cari</button>
@@ -40,10 +40,10 @@
                                         </div>
 
                                             <div class="btn-group">
-                                                <a class="btn btn-warning" href="#">
+                                                <a class="btn btn-warning" href="/berita/edit/{{$berita->id}}">
                                                 <i class="fas fa-pencil-alt"></i>
-                                                </a>
-                                                <a class="btn btn-danger" onclick="#" href="#">
+                                               </a>
+                                                <a class="btn btn-danger" onclick="return confirm('yakin mau hapus data ini?');" href="/berita/{{$berita->id}}">
                                                 <i class="fas fa-trash"></i>
                                                 </a>
                                         </div>
